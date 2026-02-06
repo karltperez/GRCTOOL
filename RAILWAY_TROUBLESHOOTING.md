@@ -280,6 +280,29 @@ We updated the Dockerfile to use `COPY . ./` which copies everything at once ins
 
 ---
 
+### Problem 10: "Could not read package.json" Error During Build
+
+**What you're seeing:**
+```
+npm error enoent Could not read package.json: 
+Error: ENOENT: no such file or directory, open '/app/package.json'
+```
+
+**What's going on:**
+The Dockerfile is trying to run `npm install` but can't find the `package.json` file. This usually happens when the build context isn't set up properly.
+
+**The Fix:**
+
+Good news—we've already fixed this! Just redeploy:
+
+1. Click Backend service → **Deployments**
+2. Click **"Redeploy"** 
+3. Wait 2-3 minutes
+
+We updated both Dockerfiles to copy all files at once with `COPY . .` right at the start. This ensures package.json is available before npm tries to use it.
+
+---
+
 ## Debugging Checklist
 
 When something's weird, go through this in order:
