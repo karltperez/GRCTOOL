@@ -70,6 +70,8 @@ Now the good part—select the **`GRCTOOL`** repository from the list.
 
 **⚠️ IMPORTANT:** When Railway asks what to deploy, DO NOT click "Deploy Now" yet! Instead, click something like **"Select Repository"** or just continue. Railway will try to auto-detect, but we need to skip this step for now because our repo is a monorepo (has multiple services).
 
+**Note on the Builder:** Railway will show you builder options (likely `Dockerfile` or `Nixpacks`). Just skip/continue past this for now—we don't want to deploy everything at once. We'll manually add services one-by-one starting in Step 3, and each service will be set to use `Dockerfile` as the builder.
+
 ✅ **Done! Railway is now checking out your code.**
 
 ---
