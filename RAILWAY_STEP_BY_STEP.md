@@ -114,8 +114,9 @@ In Railway dashboard:
 ### 4.2 Set Root Directory to Backend
 - Click the service settings
 - Look for **"Root Directory"** or **"Deploy"** settings
-- Change to: `backend`
-- Save
+- Change to: `backend` (without trailing slash)
+- **Important:** Do NOT include `/` at the end (e.g., NOT `backend/`)
+- Save and wait for redeploy
 
 ### 4.3 Add Environment Variables
 Click on Backend service → **"Variables"** tab
@@ -140,9 +141,14 @@ openssl rand -base64 32
 **For FRONTEND_URL:** Leave as placeholder for now, you'll update after frontend deploys
 
 ### 4.4 Configure Build & Deploy
-- Railway should auto-detect `backend/Dockerfile`
-- Check **"Build Command"** is set correctly
-- Should be: Build from Dockerfile ✅
+- Click **Settings** tab on Backend service
+- Scroll to **"Deploy"** section
+- Verify **"Builder"** is set to: **"Dockerfile"** (NOT "Nixpacks")
+- Verify **"Dockerfile"** path shows just: `Dockerfile`
+- Click **Save**
+- If you see "Dockerfile does not exist" error:
+  - **Solution:** Make sure Root Directory is set to exactly `backend` (no slash)
+  - Then click **"Redeploy"** button
 
 ### 4.5 View Backend Logs
 - Click on service
@@ -163,7 +169,9 @@ openssl rand -base64 32
 
 ### 5.2 Set Root Directory to Frontend
 - Click settings
-- Set **"Root Directory"** to: `frontend`
+- Set **"Root Directory"** to: `frontend` (without trailing slash)
+- **Important:** Do NOT include `/` at the end (e.g., NOT `frontend/`)
+- Save and wait for redeploy
 
 ### 5.3 Add Environment Variables
 Click on Frontend service → **"Variables"** tab
@@ -180,9 +188,14 @@ REACT_APP_API_URL=https://your-backend-url.railway.app/api
 - Use: `https://[backend-url]/api`
 
 ### 5.4 Set Build & Deploy Settings
-- Railway detects `frontend/Dockerfile`
-- Verify it's using the correct Dockerfile
-- Should use **"Build from Dockerfile"** ✅
+- Click **Settings** tab on Frontend service
+- Scroll to **"Deploy"** section
+- Verify **"Builder"** is set to: **"Dockerfile"** (NOT "Nixpacks")
+- Verify **"Dockerfile"** path shows just: `Dockerfile`
+- Click **Save**
+- If you see "Dockerfile does not exist" error:
+  - **Solution:** Make sure Root Directory is set to exactly `frontend` (no slash)
+  - Then click **"Redeploy"** button
 
 ### 5.5 Watch Frontend Deploy
 - Go to **"Logs"** tab
@@ -346,6 +359,29 @@ Database:  PostgreSQL managed by Railway
 
 ## 🐛 Troubleshooting
 
+### Dockerfile "does not exist" error
+**What you see:**
+```
+Dockerfile `Dockerfile` does not exist
+```
+
+**Why it happens:**
+- Root Directory is set incorrectly
+- Path includes trailing slash (e.g., `backend/` instead of `backend`)
+
+**Fix:**
+1. Click Backend service → Settings
+2. Find "Root Directory" field
+3. Change from `backend/` to `backend` (remove the slash)
+4. Click Save
+5. Click "Redeploy" button
+6. Wait 2-3 minutes for rebuild
+
+**Same fix for Frontend:**
+1. Root Directory should be `frontend` (not `frontend/`)
+
+---
+
 ### Backend won't start
 **Check logs:**
 - Service → Logs → Look for errors
@@ -455,9 +491,14 @@ Your GRC Tool Online is now:
 
 ## 📞 Need Help?
 
+### Comprehensive Troubleshooting
+- **See:** `RAILWAY_TROUBLESHOOTING.md` for detailed solutions to common issues
+- **Coverage:** Dockerfile errors, build failures, connectivity issues, database problems, memory issues, and more
+
 ### Railway Support
 - Railway Docs: https://docs.railway.app
 - Community: https://railway.app/community
+- Status: https://status.railway.app
 
 ### Your App Support
 - Backend issues: See `backend/README.md`
@@ -468,6 +509,7 @@ Your GRC Tool Online is now:
 - Check logs: Service → Logs tab
 - View metrics: Service → Metrics tab
 - Update config: Service → Variables tab
+- Troubleshooting: See `RAILWAY_TROUBLESHOOTING.md`
 
 ---
 
