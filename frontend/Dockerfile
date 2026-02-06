@@ -2,22 +2,14 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-# BUILD_ID: 20260206-v3 (Force fresh build on Railway)
-# Step 1: Copy package files explicitly
-COPY package.json /app/package.json
-COPY package-lock.json* /app/package-lock.json
-COPY tsconfig.json /app/tsconfig.json
-COPY tailwind.config.js /app/tailwind.config.js
-COPY postcss.config.js /app/postcss.config.js
+# BUILD_ID: 20260206-v4 (Complete rebuild - using COPY . . approach)
+# Copy everything from build context
+COPY . .
 
-# Step 2: Install dependencies
+# Install dependencies
 RUN npm ci --production=false
 
-# Step 3: Copy source code and public files
-COPY src /app/src
-COPY public /app/public
-
-# Step 4: Build the React app
+# Build the React app
 RUN npm run build
 
 # Production stage
