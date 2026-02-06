@@ -257,6 +257,29 @@ Your backend crashed or the database went down.
 
 ---
 
+### Problem 9: "tsconfig.json": not found Error
+
+**What you're seeing:**
+```
+ERROR: failed to build: failed to solve: 
+failed to compute cache key: "/tsconfig.json": not found
+```
+
+**What's going on:**
+The Dockerfile is trying to copy individual files (package.json, tsconfig.json, src/) but Railway's caching system is having trouble finding them.
+
+**The Fix:**
+
+Good news—we've already fixed this! Just redeploy:
+
+1. Click Backend service → **Deployments**
+2. Click **"Redeploy"** 
+3. Wait 2-3 minutes
+
+We updated the Dockerfile to use `COPY . ./` which copies everything at once instead of trying to copy individual files. This is much more reliable and should work perfectly now.
+
+---
+
 ## Debugging Checklist
 
 When something's weird, go through this in order:
