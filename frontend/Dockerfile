@@ -2,13 +2,21 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-# Copy everything to /app
-COPY . .
+# Step 1: Copy package files explicitly
+COPY package.json .
+COPY package-lock.json* .
+COPY tsconfig.json .
+COPY tailwind.config.js .
+COPY postcss.config.js .
 
-# Install dependencies
-RUN npm install
+# Step 2: Install dependencies
+RUN npm ci --production=false
 
-# Build the React app
+# Step 3: Copy source code and public files
+COPY src ./src
+COPY public ./public
+
+# Step 4: Build the React app
 RUN npm run build
 
 # Production stage
@@ -24,5 +32,4 @@ COPY --from=build /app/build ./build
 
 EXPOSE 3000
 
-# Start the application
 CMD ["serve", "-s", "build", "-l", "3000"]

@@ -14,3 +14,4 @@ coverage
 .idea
 *.swp
 *.swo
+# DO NOT IGNORE package.json, tsconfig.json, or src/

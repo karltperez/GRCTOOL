@@ -2,16 +2,21 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy all files from the service directory
-COPY . .
+# Step 1: Copy package files explicitly
+COPY package.json .
+COPY package-lock.json* .
+COPY tsconfig.json .
 
-# Install dependencies
-RUN npm install
+# Step 2: Install dependencies
+RUN npm ci --production=false
 
-# Build TypeScript
+# Step 3: Copy source code
+COPY src ./src
+
+# Step 4: Build TypeScript
 RUN npm run build
 
+# Step 5: Expose port and run
 EXPOSE 5000
 
-# Start the application
 CMD ["npm", "start"]
