@@ -66,7 +66,9 @@ Railway will give you a few options. You want **"Deploy from GitHub"** since you
 Railway will ask for permission to connect to your GitHub account (if it hasn't already). This is so it can access your code. Just click **"Authorize railway-app"** and you're good.
 
 ### 2.4 Pick Your Repository
-Now the good part—select the **`GRCTOOL`** repository from the list. Once you click on it, you can hit **"Deploy Now"** to move forward.
+Now the good part—select the **`GRCTOOL`** repository from the list. 
+
+**⚠️ IMPORTANT:** When Railway asks what to deploy, DO NOT click "Deploy Now" yet! Instead, click something like **"Select Repository"** or just continue. Railway will try to auto-detect, but we need to skip this step for now because our repo is a monorepo (has multiple services).
 
 ✅ **Done! Railway is now checking out your code.**
 
@@ -75,6 +77,8 @@ Now the good part—select the **`GRCTOOL`** repository from the list. Once you 
 ## 🎯 Step 3: Set Up Your Database
 
 Your app needs a place to store data. Let's set up PostgreSQL—think of it as the filing cabinet for your GRC Tool.
+
+**🚀 Important Note:** If Railway auto-deployed and you're seeing "Dockerfile not found" errors, don't worry! That's normal for a monorepo. We're going to add services one-by-one manually, which is the right way to do it. Just delete any failed deployments and continue with the steps below.
 
 ### 3.1 Add a PostgreSQL Database
 In your Railway project, look for **"Add Service"** or the **"+"** button. Click it, then select **"Database"** → **"PostgreSQL"**. 
@@ -302,6 +306,20 @@ Once everything is running, you'll have live URLs for everything:
 ---
 
 ## 🆘 Something Not Working? Here's Help!
+
+### Getting "Dockerfile not found" During Initial Setup (Step 2)?
+**You'll see:** 
+```
+Dockerfile `Dockerfile` does not exist
+```
+
+**Why it's happening:** Railway tried to auto-deploy your entire repository, but our repo is a monorepo (it has backend, frontend, and database all in one). Railway doesn't know which one to deploy first.
+
+**The fix:** 
+1. **Don't worry—this is normal!** Just go back to your project
+2. Look for any failed services/deployments and delete them
+3. Continue with **Step 3** below—we'll add services one at a time manually
+4. This is actually the RIGHT way to set up a monorepo on Railway!
 
 ### Dockerfile Error (The "Does Not Exist" Thing)
 **You'll see:** 
