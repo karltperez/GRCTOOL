@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy everything from the current directory
+# Copy all files from the service directory
 COPY . .
 
 # Install dependencies

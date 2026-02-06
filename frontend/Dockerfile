@@ -2,7 +2,7 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-# Copy everything
+# Copy everything to /app
 COPY . .
 
 # Install dependencies
