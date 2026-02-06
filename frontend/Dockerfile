@@ -2,12 +2,11 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-# Copy package files (when root directory is set to 'frontend' in Railway)
-COPY package*.json ./
-RUN npm install
+# Copy everything
+COPY . .
 
-# Copy all source code
-COPY . ./
+# Install dependencies
+RUN npm install
 
 # Build the React app
 RUN npm run build
