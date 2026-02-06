@@ -2,6 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# BUILD_ID: 20260206-v3 (Force fresh build on Railway)
 # Step 1: Copy package files explicitly
 COPY package.json /app/package.json
 COPY package-lock.json* /app/package-lock.json
