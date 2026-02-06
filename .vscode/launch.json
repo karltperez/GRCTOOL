@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend Debug",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/dist/index.js",
+      "preLaunchTask": "backend-build",
+      "outFiles": ["${workspaceFolder}/backend/dist/**/*.js"],
+      "cwd": "${workspaceFolder}/backend"
+    },
+    {
+      "name": "Attach to Backend",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "cwd": "${workspaceFolder}/backend"
+    }
+  ],
+  "compounds": []
+}
