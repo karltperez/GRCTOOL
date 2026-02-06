@@ -2,17 +2,20 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY backend/package*.json ./backend/
-COPY backend/tsconfig.json ./backend/
+# Copy package files (when root directory is set to 'backend' in Railway)
+COPY package*.json ./
+COPY tsconfig.json ./
 
-WORKDIR /app/backend
-
+# Install dependencies
 RUN npm install
 
-COPY backend/src ./src
+# Copy source code
+COPY src ./src
 
+# Build TypeScript
 RUN npm run build
 
 EXPOSE 5000
 
+# Start the application
 CMD ["npm", "start"]
